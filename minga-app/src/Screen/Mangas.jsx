@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, Image, TextInput, ImageBackground, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TextInput, ImageBackground, ScrollView } from 'react-native';
 import axios from 'axios';
 import CardMangas from '../Components/CardMangas';
 import search from "../../assets/Search.png"
@@ -16,7 +16,7 @@ export default function Mangas() {
   
     useEffect(() => {
         setLoading(true);
-        axios.get(`https://minga-grupoblanco.onrender.com/api/manga/view?page=${currentPage}`)
+        axios.get(`https://minga-host.onrender.com/mangas-form/view?page=${currentPage}`)
           .then(response => {
             if (response.data.mangas.length === 0) {
               setHasMore(false);
@@ -33,7 +33,7 @@ export default function Mangas() {
       }, [currentPage, searchQuery]);
   
     useEffect(() => {
-      axios.get("https://minga-grupoblanco.onrender.com/api/manga")
+      axios.get("https://minga-host.onrender.com/mangas-form")
         .then(response => {
           setCate(response.data.categories);
         })
@@ -62,7 +62,13 @@ export default function Mangas() {
               <View style={styles.fondoMangaImg}>
                 <View style={styles.fondoManga}>
                   <Text style={styles.title}>Mangas</Text>
-                  <View style={styles.searchContainer}>
+                  
+                </View>
+              </View>
+      
+              <View style={styles.sectionManga}>
+                <Text style={styles.exploreMangas}>Explore Mangas</Text>
+                <View style={styles.searchContainer}>
                     <Image source={search} style={styles.searchIcon} />
                     <TextInput
                       style={styles.searchInput}
@@ -70,12 +76,6 @@ export default function Mangas() {
                       onChangeText={handleSearch}
                     />
                   </View>
-                </View>
-              </View>
-      
-              <View style={styles.sectionManga}>
-                <Text style={styles.exploreMangas}>Explore Mangas</Text>
-      
                 <View style={styles.contCartas}>
                   {filteredMangas.length > 0 &&
                     filteredMangas.map((manga, index) => (
@@ -90,7 +90,7 @@ export default function Mangas() {
                     ))}
                 </View>
       
-                {loading && <Text>Loading...</Text>}
+                {loading && <Text style={styles.loadMoreButton}>Loading...</Text>}
                 {!loading && hasMore && (
                   <Text style={styles.loadMoreButton} onPress={handleLoadMore}>
                     Load more
@@ -109,6 +109,24 @@ export default function Mangas() {
 }
 
 const styles = {
+  loadMoreButton:{
+    color: "white",
+    fontSize: 15,
+    height: 22,
+    borderRadius: 15,
+    width: 110,
+    backgroundColor: 'rgba(128, 128, 128, 0.8)',
+    textAlign: 'center'
+  },
+  noMoreButton:{
+    color: "white",
+    fontSize: 15,
+    height: 22,
+    borderRadius: 15,
+    width: 200,
+    backgroundColor: 'rgba(128, 128, 128, 0.8)',
+    textAlign: 'center'
+  },
   containTotal:{
     width:"100%",
     minHeight:"100%",
@@ -120,30 +138,36 @@ const styles = {
   },
   fondoMangaImg:{
     width:"100%",
-    marginTop: 20
+    marginTop: 100
   },
   fondoManga: {
     width:"100%",
     height: 100,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     paddingHorizontal: 20,
+    justifyContent: "center",
+    marginBottom: 50,
+    gap: 15,
+    
   },
 
   title: {
-    fontSize: 24,
+    fontSize: 44,
     fontWeight: 'bold',
     marginRight: 10,
     color: "white"
   },
   searchContainer: {
     flex: 1,
-    height: 40,
+    height: 60,
     backgroundColor: 'rgba(228, 228, 228, 0.8)',
-    borderRadius: 10,
+    borderRadius: 40,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: "center",
     paddingHorizontal: 10,
+    marginBottom: 20
   },
   searchIcon: {
     width: 20,
@@ -158,15 +182,16 @@ const styles = {
     flex: 1,
     padding: 20,
     width: "100%",
-    backgroundColor: "rgba(228, 228, 228, 0.8)",
-    borderRadius: 40,
+    backgroundColor: "rgba(28, 28, 28, 1)",
+    borderRadius: 70,
     alignItems: "center",
-    flexDirection: "column"
+    flexDirection: "column",
   },
   exploreMangas: {
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 10,
+    color: "white"
   },
   contCartas:{
     justifyContent: "center",

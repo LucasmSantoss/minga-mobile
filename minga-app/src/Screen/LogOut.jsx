@@ -29,28 +29,28 @@ export default function LogOut() {
   );
 
   const handleLogOut = async () => {
-    const url = 'https://minga-grupoblanco.onrender.com/api/auth/signout';
+    const url = 'https://minga-grupoblanco.onrender.com/api/auth/signup';
     const headers = { headers: { 'Authorization': `Bearer ${token}` } };
     try {
       await axios.post(url, " ", headers);
-
+  
       await AsyncStorage.removeItem('token');
       await AsyncStorage.removeItem('user');
-
-     
+  
       const storedToken = await AsyncStorage.getItem('token');
       const storedUser = await AsyncStorage.getItem('user');
       console.log('Token almacenado:', storedToken);
       console.log('Usuario almacenado:', storedUser);
-
-      dispatch(reloadBottomTabs({ state: false })); 
-      navigation.navigate('Home');
-      
+  
+      dispatch(reloadBottomTabs({ state: false }));
+      Alert.alert('Logout', 'Logout success');
+      navigation.navigate('Login');
     } catch (error) {
       console.log(error);
       Alert.alert('Error', 'Ha ocurrido un error al cerrar sesión. Por favor, inténtalo de nuevo.');
     }
   };
+  
 
   return <Button title="Log Out" onPress={handleLogOut} />;
 }

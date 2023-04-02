@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import bg from '../../assets/registerfondo.jpg';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -14,23 +15,34 @@ export default function Profile() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      {user ? (
-        <View style={styles.userContainer}>
-        <Text style={styles.userTitle}>User Information:</Text>
-        <Image
-          style={styles.userPhoto}
-          source={{ uri: user.photo }}
-        />
-        <Text style={styles.userText}>Name: {user.name}</Text>
-        <Text style={styles.userText}>Email: {user.email}</Text>
+    <ImageBackground source={bg} style={styles.background}>
+      <View style={styles.container}>
+        {user ? (
+          <View style={styles.userContainer}>
+            <Text style={styles.userTitle}>User Information:</Text>
+            <Image style={styles.userPhoto} source={{ uri: user.photo }} />
+            <Text style={styles.userText}>Name: {user.user}</Text>
+            <Text style={styles.userText}>Email: {user.mail}</Text>
+          </View>
+        ) : (
+          <View style={styles.loggedOutContainer}>
+            <Text style={styles.loggedOutText}>You are not logged in.</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Log In</Text>
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
-      ) : ("")}
-    </View>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
+  background: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -47,6 +59,7 @@ const styles = StyleSheet.create({
   userText: {
     fontSize: 16,
     marginBottom: 5,
+    color: '#FFFFFF',
   },
   userPhoto: {
     width: 100,

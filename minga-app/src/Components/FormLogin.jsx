@@ -88,7 +88,7 @@ export default function FormLogin() {
         <TouchableOpacity
           style={styles.button2}
           onPress={() => {
-            // handle Google sign up logic here
+         
           }}
         >
           <Image style={styles.googleImg} source={google} />
@@ -122,6 +122,7 @@ const styles = StyleSheet.create({
     gap: 20,
     marginTop: 30,
     width: "100%",
+    
   },
   fieldset: {
     display: "flex",

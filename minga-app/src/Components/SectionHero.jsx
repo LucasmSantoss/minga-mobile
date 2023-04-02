@@ -14,7 +14,7 @@ export default function SectionHero1(props) {
 
 const styles = StyleSheet.create({
   boton: {
-    backgroundColor: '#4338CA',
+    backgroundColor: '#27AE60',
     padding: 10,
     width: 290,
     height: 50,

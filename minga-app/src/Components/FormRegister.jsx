@@ -69,7 +69,7 @@ export default function FormRegister() {
 
       <View style={styles.divGoogle}>
         <TouchableOpacity style={styles.button2} onPress={() => {
-            // handle Google sign up logic here
+         
           }}>
           <Image style={styles.googleImg} source={google} />
           <Text style={styles.buttonText2}>Sign up with Google</Text>
