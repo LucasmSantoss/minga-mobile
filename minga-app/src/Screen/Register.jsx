@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, ImageBackground } from 'react-native';
 import Wellcome from '../Components/Wellcome';
 import FormRegister from '../Components/FormRegister';
-import bg from '../../assets/registerfondo.jpg';
+import bg from '../../assets/fondoregister.jpg';
 
 export default function Register({ handleRender }) {
   return (
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: 'transparent', // haz que el fondo de tu ScrollView sea transparente para que la imagen de fondo sea visible
+    backgroundColor: 'transparent',
   },
 });

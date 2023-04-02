@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import bottomTabsActions from '../Store/Profile/action';  
@@ -8,6 +8,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Wellcome from './Wellcome';
 import axios from 'axios';
 import google from "../../assets/Googlee.png"
+
 
 export default function FormLogin() {
   const navigation = useNavigation();
@@ -42,10 +43,11 @@ export default function FormLogin() {
       const storedUser = await AsyncStorage.getItem('user');
       console.log('Usuario almacenado:', storedUser);
       console.log('logueado');
-
-      dispatch(reloadBottomTabs({ state: !state }))
+      dispatch(reloadBottomTabs({ state: !state }));
+      Alert.alert('Usuario logeado correctamente');
     } catch (error) {
       console.log(error);
+      Alert.alert('Usuario o contraseña incorrectos');
     }
   }
   return (

@@ -21,7 +21,7 @@ export default function CardMangas({title, category, photo }) {
         <Text
           style={styles.read}
           onPress={() => {
-            navigation.navigate('register');
+            navigation.navigate('Details');
           }}
         >
           Details

@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, View, ImageBackground } from 'react-native';
 import Wellcome from '../Components/Wellcome';
 import FormLogin from '../Components/FormLogin';
-import bg from '../../assets/home.png';
+import bg from '../../assets/fondologin.jpg';
 
 export default function Login() {
   return (

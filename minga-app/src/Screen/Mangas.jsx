@@ -3,7 +3,7 @@ import { View, Text, Image, TextInput, ImageBackground, ScrollView } from 'react
 import axios from 'axios';
 import CardMangas from '../Components/CardMangas';
 import search from "../../assets/Search.png"
-import fondo from "../../assets/mangass.png"
+import fondo from "../../assets/profile.jpg"
 
 export default function Mangas() {
     const [mangas, setMangas] = useState([]);

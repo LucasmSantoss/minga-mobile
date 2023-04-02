@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import bg from '../../assets/registerfondo.jpg';
+import bg from '../../assets/mangass.png';
 
 export default function Profile() {
   const [user, setUser] = useState(null);

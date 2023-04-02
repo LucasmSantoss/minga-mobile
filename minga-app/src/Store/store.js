@@ -23,7 +23,7 @@ export const store = configureStore ({
   reducer: {
     bottomTabsReducer: bottomTabsReducer,
     // alert: alertReducer,
-    // mangas: mangasReducer,
+    mangas: mangasReducer,
     // checked: captureState,
     // categories: categoriesReducer, 
     // order: sortReducer,

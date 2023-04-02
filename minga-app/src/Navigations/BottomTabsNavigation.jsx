@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
-import { ScrollView, StyleSheet, View, ImageBackground } from 'react-native';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Home from "../Screen/Home";
 import Register from "../Screen/Register";
 import Mangas from "../Screen/Mangas";
 import Profile from "../Screen/Profile";
 import LogOut from "../Screen/LogOut";
+import Details from "../Screen/Details";
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator();
@@ -51,6 +52,7 @@ function BottomTabsNavigation() {
         },
       })}
     >
+      <Tab.Screen name="Details" component={Details} />
       <Tab.Screen
         name="Home"
         component={Home}
