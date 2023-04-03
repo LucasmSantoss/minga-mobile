@@ -13,7 +13,8 @@ const reducer = createReducer(
         (state,action) => {
             let newState = {
                 ...state,
-                checked : action.payload.checked 
+                checked: action.payload.checked,
+                page: action.payload.page
             }
             return newState
         }

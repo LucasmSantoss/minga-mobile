@@ -1,22 +1,24 @@
-import React, { useState, useEffect } from "react";
+
+import React, { useState } from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Home from "../Screen/Home";
-import Register from "../Screen/Register";
+import ContFormRegister from "../Screen/Register";
 import Mangas from "../Screen/Mangas";
-import Profile from "../Screen/Profile";
+import Perfil from "../Screen/Profile";
 import LogOut from "../Screen/LogOut";
+import { FontAwesome } from '@expo/vector-icons';
 import Details from "../Screen/Details";
-
-import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Tab = createBottomTabNavigator();
 
 function BottomTabsNavigation() {
   let state = useSelector((store) => store.bottomTabsReducer.state);
-  let [token, setToken] = useState('')
+  let [token, setToken] = useState("");
+
+  const details = useSelector((store) => store.mangaClickReducer.state);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -34,52 +36,94 @@ function BottomTabsNavigation() {
 
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
-
-          if (route.name === 'Home') {
-            iconName = 'home';
-          } else if (route.name === 'register') {
-            iconName = 'person-add';
-          } else if (route.name === 'Mangas') {
-            iconName = 'book';
-          } else if (route.name === 'Profile') {
-            iconName = 'person';
-          }
-
-          return <Icon name={iconName} size={size} color={color} />;
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "#111111",
+          borderTopColor: "transparent",
+          height: 55,
+          paddingBottom: 5,
+          paddingTop: 5,
+          elevation: 0,
+          shadowOpacity: 0,
         },
-      })}
+        tabBarLabelStyle: {
+          fontSize: 10,
+          marginBottom: 5,
+        },
+        tabBarActiveTintColor: "green",
+        tabBarInactiveTintColor: "#9B9B9B",
+        tabBarTabStyle: {
+          paddingTop: 0,
+          paddingBottom: 0,
+        },
+      }}
     >
-      <Tab.Screen name="Details" component={Details} />
+
+       { details ? (<Tab.Screen
+      name="Details"
+      component={Details}
+      options={{
+        headerShown: false,
+        tabBarLabel: 'Details',
+        tabBarIcon: ({ color }) => (
+          <FontAwesome name="info" size={24} color={color} />
+        ),
+      }}
+    />) : (<></>)}
+      
       <Tab.Screen
         name="Home"
         component={Home}
-        options={{ headerShown: false }}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="home" size={24} color={color} />
+          ),
+        }}
       />
-      <Tab.Screen
-        name="register"
-        component={Register}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="Mangas"
-        component={Mangas}
-        options={{ headerShown: false }}
-      />
-
       {token ? (
-        <Tab.Screen name="Profile" options={{ headerShown: false }}>
-          {() => (
-            <>
-              <Profile />
-              <LogOut/>
-            </>
-          )}
-        </Tab.Screen>
-      ): <></>}
-      
+        <>
+          <Tab.Screen
+            name="Mangas"
+            component={Mangas}
+            options={{
+              headerShown: false,
+              tabBarLabel: 'Mangas',
+              tabBarIcon: ({ color }) => (
+                <FontAwesome name="book" size={24} color={color} />
+              ),
+            }}
+          />
+          <Tab.Screen name="Perfil" options={{
+            headerShown: false,
+            tabBarLabel: 'Profile',
+            tabBarIcon: ({ color }) => (
+              <FontAwesome name="user" size={24} color={color} />
+            ),
+          }}>
+            {() => (
+              <>
+                <Perfil />
+                <LogOut />
+              </>
+            )}
+          </Tab.Screen>
+        </>
+      ) : (
+        <><Tab.Screen
+        name="register"
+        component={ContFormRegister}
+        options={{
+          headerShown: false,
+          tabBarLabel: 'Register',
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="user-circle-o" size={24} color={color} />
+          ),
+        }}
+      /></>
+      )}
     </Tab.Navigator>
   );
 }

@@ -2,7 +2,7 @@ import { createReducer } from "@reduxjs/toolkit"
 import actions from './actions'
 
 
-const { captureChapter, captureManga } = actions
+const { captureChapter, captureManga} = actions
 
 const initialstate = {
    manga:[],
@@ -32,5 +32,6 @@ const reducer = createReducer(
                 return newState
             }
         ) 
+
 )
-export default reducer  
+export default reducer

@@ -1,14 +1,15 @@
+
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
-import bottomTabsActions from '../Store/Profile/action';  
+import bottomTabsActions from '../Store/Perfil/action';  
 const { reloadBottomTabs } = bottomTabsActions
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Wellcome from './Wellcome';
+import BienvenidaRegister from './Wellcome';
 import axios from 'axios';
 import google from "../../assets/Googlee.png"
-
+import { Alert } from 'react-native';
 
 export default function FormLogin() {
   const navigation = useNavigation();
@@ -16,6 +17,7 @@ export default function FormLogin() {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch()
   let state = useSelector(store => store.bottomTabsReducer.state)
+  const [loading, setLoading] = useState()
 
   async function handleSubmit() {
     let data = {
@@ -26,10 +28,11 @@ export default function FormLogin() {
     let url = 'https://minga-grupoblanco.onrender.com/api/signin/';
 
     try {
+      setLoading(true)
       const response = await axios.post(url, data);
       const { token, user } = response.data;
       
-      
+     
       await AsyncStorage.setItem('token', token);
       const storedToken = await AsyncStorage.getItem('token');
       console.log('Token almacenado:', storedToken);
@@ -43,24 +46,30 @@ export default function FormLogin() {
       const storedUser = await AsyncStorage.getItem('user');
       console.log('Usuario almacenado:', storedUser);
       console.log('logueado');
-      dispatch(reloadBottomTabs({ state: !state }));
-      Alert.alert('Usuario logeado correctamente');
+      dispatch(reloadBottomTabs({ state: !state }))
+      setTimeout(() => {
+        setLoading(false);
+      }, 1500);
+      Alert.alert(
+        'User logged in!',
+      
+      );
     } catch (error) {
       console.log(error);
-      Alert.alert('Usuario o contraseña incorrectos');
+      setLoading(false);
     }
   }
   return (
     
     <View style={styles.container}>
-      <Wellcome text="Welcome!"/>
+      <BienvenidaRegister text="Welcome!"/>
 
       <View style={styles.fieldset}>
         <Text style={styles.legend}>Email</Text>
         <View style={styles.legendCont}>
           <TextInput
             style={styles.input}
-            id="email"
+            id="mail"
             name="mail"
             required
             onChangeText={(inputText) => setmail(inputText)}
@@ -84,13 +93,14 @@ export default function FormLogin() {
 
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Sign in</Text>
+    
       </TouchableOpacity>
 
       <View style={styles.divGoogle}>
         <TouchableOpacity
           style={styles.button2}
           onPress={() => {
-         
+          
           }}
         >
           <Image style={styles.googleImg} source={google} />
@@ -124,7 +134,6 @@ const styles = StyleSheet.create({
     gap: 20,
     marginTop: 30,
     width: "100%",
-    
   },
   fieldset: {
     display: "flex",

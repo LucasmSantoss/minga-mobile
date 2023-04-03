@@ -19,9 +19,9 @@ export default function Profile() {
       <View style={styles.container}>
         {user ? (
           <View style={styles.userContainer}>
-            <Text style={styles.userTitle}>User Information:</Text>
+           
             <Image style={styles.userPhoto} source={{ uri: user.photo }} />
-            <Text style={styles.userText}>Name: {user.user}</Text>
+            <Text style={styles.userTitle}>User Information:</Text>
             <Text style={styles.userText}>Email: {user.mail}</Text>
           </View>
         ) : (
@@ -62,8 +62,8 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   userPhoto: {
-    width: 100,
-    height: 100,
+    width: 200,
+    height: 200,
     borderRadius: 50,
     marginBottom: 10,
   },

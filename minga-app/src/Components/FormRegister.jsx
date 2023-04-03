@@ -1,8 +1,11 @@
+
 import React, { useState } from 'react';
 import axios from 'axios';
 import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import google from "../../assets/Googlee.png"
+import { Alert } from 'react-native';
 
 export default function FormRegister() {
   const [name, setName] = useState('');     
@@ -10,6 +13,7 @@ export default function FormRegister() {
   const [photo, setPhoto] = useState('');     
   const [password, setPassword] = useState('');
   const navigation= useNavigation()
+  const [loading, setLoading] = useState()
 
   async function handleSubmit() {
     let data = {
@@ -19,12 +23,22 @@ export default function FormRegister() {
         password: password
     }
     
-    let url = 'https://minga-grupoblanco.onrender.com/api/signup'
+    let url = 'https://minga-grupoblanco.onrender.com/api/signup/'
     try {
+      setLoading(true)
         await axios.post(url, data)
         console.log('creado')
+        setTimeout(() => {
+        setLoading(false);
+      }, 3000);
+      navigation.navigate("Home")
+      Alert.alert(
+        'Account created!',
+        'Your account has been created successfully.',
+      );
     } catch (error) {
         console.log(error)
+        setLoading(false);
     }
 }
   
@@ -65,11 +79,12 @@ export default function FormRegister() {
 
       <TouchableOpacity style={styles.button} onPress={handleSubmit}>
         <Text style={styles.buttonText}>Sign up</Text>
+
       </TouchableOpacity>
 
       <View style={styles.divGoogle}>
         <TouchableOpacity style={styles.button2} onPress={() => {
-         
+          
           }}>
           <Image style={styles.googleImg} source={google} />
           <Text style={styles.buttonText2}>Sign up with Google</Text>
@@ -132,7 +147,7 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     letterSpacing: 1,
     fontWeight: 500,
-    color: "black",
+    color: "#5F5F5F",
   },
   input: {
     width: "90%",

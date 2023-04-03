@@ -1,252 +1,217 @@
-import {
-  View,
-  Text,
-  Image,
-  ScrollView,
-  StyleSheet,
-  TouchableOpacity,
-  ImageBackground,
-} from "react-native";
-import { useSelector, useDispatch } from "react-redux";
-import actions from "../Store/Mangas/actions.js";
+import React, { useState, useEffect } from "react";
+import { View, Text, Image, ImageBackground, ScrollView } from "react-native";
+import fondo from "../../assets/fondologin.jpg";
+import actions from "../Store/Manga/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { TouchableOpacity } from "react-native";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import logo from "../../assets/Logo2.png";
-import bg from "../../assets/fondologin.jpg";
 
 const { captureManga, captureChapter } = actions;
-function Details() {
-  const id = "6418b8f9b447d534f335807d"; //aca va const {id}=useparams()-> depende de la ruta que viene de mangas
-  const page = Number(useParams().page);
-  const dispatch = useDispatch();
-  const [pagina, setPagina] = useState(0);
-  const [chapter, setChapter] = useState({});
+
+export default function Details({ route }) {
+  const manga = useSelector((store) => store.mangareducer.manga);
+  const [pagina, setPagination] = useState(page);
   const [capitulo, setCapitulo] = useState(true);
-  let chapters = useSelector((store) => store.mangas.chapter);
-  const manga = useSelector((store) => store.mangas.manga);
+  const page = Number(useParams().page);
+  const chapters = useSelector((store) => store.mangareducer.chapter);
+
+  console.log(chapters);
+  const _id = route.params && route.params._id;
+  const dispatch = useDispatch();
+
+  const [showChapters, setShowChapters] = useState(false);
+
+  const toggleView = () => {
+    setShowChapters(!showChapters);
+  };
 
   useEffect(() => {
-    dispatch(captureManga({ manga_id: id }));
-  }, []);
+    if (_id) dispatch(captureManga({ manga_id: _id }));
+    if (_id) dispatch(captureChapter({ manga_id: _id, page: pagina }));
+  }, [_id, pagina, capitulo]);
 
-  useEffect(() => {
-    dispatch(captureChapter({ manga_id: id, page: page }));
-  }, [page, capitulo]);
+  if (!manga) return null;
 
-  useEffect(() => {
-    setChapter(chapters[0] || {});
-  }, [chapters]);
   return (
-    <ImageBackground source={bg}>
-      <ScrollView>
-        <View
-          style={{
-            width: "100%",
-            height: 90,
-            alignItems: "center",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            backgroundColor: "transparent",
-            paddingHorizontal: 10, // añade un padding horizontal para evitar que el contenido se salga de la pantalla
-          }}
-        >
-          <Text
-            style={{
-              flex: 1, // establece un flex para que el texto ocupe el espacio restante
-              textAlign: "center",
-              fontSize: 22,
-              color: "white",
-              height: "auto",
-            }}
-          >
-            {manga?.title}
-          </Text>
-          <Image
-            source={logo}
-            style={{
-              width: "40%", // cambia el ancho a un porcentaje más pequeño
-              height: "100%",
-              resizeMode: "contain", // ajusta el tamaño de la imagen al contenedor
-            }}
-          />
-        </View>
-
-        <Image
-          source={{ uri: manga?.cover_photo }}
-          style={{
-            width: "100%",
-            height: 300,
-            width: 300,
-            marginTop: 20,
-            marginBottom: 20,
-            marginVertical: 50,
-            alignSelf: "center",
-            backgroundColor: "rgb(63, 61, 62)",
-          }}
-        />
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            marginVertical: 10,
-          }}
-        >
-          <Text
-            style={{
-              textAlign: "center",
-              borderRadius: 50,
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              marginHorizontal: 10,
-              fontSize: 20,
-              backgroundColor: "rgb(63, 61, 62)",
-              color: "white",
-            }}
-          >
-            {manga.author_id?.name}
-          </Text>
-          <Text
-            style={{
-              textAlign: "center",
-              borderRadius: 50,
-              paddingHorizontal: 20,
-              paddingVertical: 10,
-              marginHorizontal: 10,
-              fontSize: 20,
-              backgroundColor: "rgb(63, 61, 62)",
-              color: "white",
-            }}
-          >
-            {manga.category_id?.name}
-          </Text>
-        </View>
-
-        <Text
-          style={{
-            textAlign: "justify",
-            marginVertical: 20,
-            marginHorizontal: 10,
-            fontSize: 18,
-            color: "rgb(248, 246, 247)",
-          }}
-        >
-          {manga?.description}
-        </Text>
-
-        <View>
-          <Text
-            style={{
-              textAlign: "center",
-              fontSize: 20,
-              marginVertical: 20,
-              color: "rgb(248, 246, 247)",
-            }}
-          >
-            {chapter?.name}
-          </Text>
-        </View>
-
-        <View>
-          {chapters?.length > 0
-            ? chapters?.map((chapter) => (
-                <View
-                  key={chapter?._id}
-                  style={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    margin: 20,
-                  }}
-                >
-                  <Text
-                    style={{
-                      textAlign: "justify",
-                      margin: 20,
-                      fontSize: 30,
-                      height: "auto",
-                      color: "white",
-                    }}
-                  >
-                    {chapter.title}
-                  </Text>
-                  <Image
-                    style={{
-                      width: 300,
-                      height: 300,
-                      borderRadius: 40,
-                    }}
-                    source={{ uri: chapter?.manga_id.cover_photo }}
-                    alt={chapter?.title}
-                  />
-                  <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("Chapter", {
-                        chapterId: chapter?._id,
-                        page: 0,
-                      })
-                    }
-                  >
-                    <Text
-                      style={{
-                        textAlign: 'center',
-                        borderRadius: 50,
-                        width: 150,
-                        marginVertical: 20,
-                        fontSize: 24,
-                        height: 50,
-                        backgroundColor: 'rgb(63, 61, 62)',
-                        color: 'white',
-                        lineHeight: 50
-                      }}
-                    >
-                      Read
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              ))
-            : null}
-
-          <View style={styles.paginationContainer}>
-            {pagina !== 1 && (
-              <TouchableOpacity
-                style={styles.paginationButton}
-                onPress={() => setPagina(pagina - 1)}
-              >
-                <Text style={styles.paginationButtonText}>Prev</Text>
-              </TouchableOpacity>
-            )}
-            {chapters?.length === 4 && (
-              <TouchableOpacity
-                style={styles.paginationButton}
-                onPress={() => setPagina(pagina + 1)}
-              >
-                <Text style={styles.paginationButtonText}>Next</Text>
-              </TouchableOpacity>
-            )}
+    <ImageBackground source={fondo} style={styles.container}>
+      <View style={styles.containTotal}>
+        <ScrollView>
+          <View style={styles.fondoMangaImg}>
+            <View style={styles.fondoManga}>
+              <Image
+                source={{ uri: manga.cover_photo }}
+                style={styles.bannerPhoto}
+              />
+            </View>
           </View>
-        </View>
-      </ScrollView>
+
+          <View style={styles.sectionManga}>
+            <Text style={styles.titulo}>{manga.title}</Text>
+            <Text>{manga.category_id && manga.category_id.name}</Text>
+            <View>
+              <TouchableOpacity onPress={toggleView}>
+                <Text style={styles.show}>
+                  {showChapters ? "Go description" : "Go chapters"}
+                </Text>
+              </TouchableOpacity>
+              {showChapters ? (
+              
+                <View style={styles.contChapters}>
+                  {chapters.map((chapter) => {
+                    let card = (
+                      <View key={chapter.id}>
+                        <Image
+                          source={{ uri: chapter?.pages[0] }}
+                          style={styles.bannerPhotoChapter}
+                        />
+                        <Text style={styles.titleChapter}>{chapter.title}</Text>
+                      </View>
+                    );
+
+                    return card;
+                  })}
+                </View>
+              ) : (
+              
+                <Text style={styles.desripcion}>{manga.description}</Text>
+              )}
+            </View>
+          </View>
+        </ScrollView>
+      </View>
     </ImageBackground>
   );
 }
 
-const styles = StyleSheet.create({
-  paginationContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 30,
-  },
-  paginationButton: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: "rgb(63, 61, 62)",
-    borderRadius: 10,
-  },
-  paginationButtonText: {
+const styles = {
+  loadMoreButton: {
     color: "white",
-    fontSize: 18,
+    fontSize: 15,
+    height: 22,
+    borderRadius: 15,
+    width: 110,
+    backgroundColor: "rgba(128, 128, 128, 0.8)",
+    textAlign: "center",
   },
-});
+  noMoreButton: {
+    color: "white",
+    fontSize: 15,
+    height: 22,
+    borderRadius: 15,
+    width: 200,
+    backgroundColor: "rgba(128, 128, 128, 0.8)",
+    textAlign: "center",
+  },
+  containTotal: {
+    width: "100%",
+    minHeight: "100%",
+    justifyContent: "center",
+  },
+  container: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  fondoMangaImg: {
+    width: "100%",
+    marginTop: 100,
+  },
+  fondoManga: {
+    width: "100%",
+    height: 100,
+    flexDirection: "column",
+    alignItems: "center",
+    paddingHorizontal: 20,
+    justifyContent: "center",
+    marginBottom: 50,
+    gap: 15,
+  },
 
-export default Details;
+  title: {
+    fontSize: 44,
+    fontWeight: "bold",
+    marginRight: 10,
+    color: "white",
+  },
+  searchContainer: {
+    flex: 1,
+    height: 60,
+    
+    borderRadius: 40,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 10,
+    marginBottom: 20,
+  },
+  searchIcon: {
+    width: 20,
+    height: 20,
+    marginRight: 10,
+  },
+  searchInput: {
+    flex: 1,
+    fontSize: 16,
+  },
+  sectionManga: {
+    flex: 1,
+    padding: 20,
+    width: "100%",
+    
+    alignItems: "center",
+    flexDirection: "column",
+    marginTop: 75,
+    minHeight: "100%",
+  },
+  contCartas: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  bannerPhoto: {
+    marginTop: 160,
+    width: 350,
+    height: 350,
+  
+  },
+  desripcion: {
+    color: "#000000",
+    height: 400,
+    padding: 15,
+    fontSize: 18,
+    textAlign: "center",
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: {width: 2, height: 2},
+    textShadowRadius: 2,
+  },
+  titulo: {
+    color: "black",
+   
+    fontSize: 30,
+    marginBottom: 10,
+    fontWeight: 900,
+  },
+  show: {
+    color: "green",
+    textAlign: "center",
+    fontSize: 20,
+
+    borderRadius: 100,
+    marginBottom: 10,
+    fontWeight: 500,
+  },
+  bannerPhotoChapter: {
+    width: 140,
+    height: 140,
+    borderRadius: 40,
+  },
+  contChapters: {
+    width: 360,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: 15,
+  },
+  titleChapter: {
+    color: "white",
+    textAlign: "center",
+  },
+};

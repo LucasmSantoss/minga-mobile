@@ -5,8 +5,27 @@ import TitlteHero1 from '../Components/TitlteHero';
 import SectionHero21 from '../Components/SectionHero2';
 import SectionHero1 from '../Components/SectionHero';
 import FormLogin from '../Components/FormLogin';
+import { useSelector } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
 
 export default function Seccion1Hero1() {
+
+  let [token, setToken] = useState("");
+  let state = useSelector((store) => store.bottomTabsReducer.state);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      async function getData() {
+        try {
+          const value = await AsyncStorage.getItem("token");
+          setToken(value);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+      getData();
+    }, [state])
+  );
 
   return (
     <ImageBackground source={bg} style={styles.backgroundImage}>
