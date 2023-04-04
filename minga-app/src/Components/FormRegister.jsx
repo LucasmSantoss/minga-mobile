@@ -1,9 +1,9 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity, StyleSheet, Image,KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import google from "../../assets/Googlee.png"
 import { Alert } from 'react-native';
 
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "black",
+    backgroundColor: "green",
     borderRadius: 10,
     height: 60,
     marginBottom: 20,
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
   },
 
   parrafosFormText:{
-    color: "#FA0003",
+    color: "green",
     fontWeight: 700,
   },
 });

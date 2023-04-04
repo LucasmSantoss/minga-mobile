@@ -55,25 +55,22 @@ export default function Details({ route }) {
                 </Text>
               </TouchableOpacity>
               {showChapters ? (
-              
-              <View style={styles.contChapters}>
-              {chapters.map((chapter) => {
-                let card = (
-                  <View key={chapter.id}>
-                    <Image
-                      source={{ uri: chapter?.pages[0] }}
-                      style={styles.bannerPhotoChapter}
-                    />
-                    <Text style={styles.titleChapter}>{chapter.title}</Text>
-                  </View>
-                );
-            
-                return card;
-              })}
-            </View>
-            
+                <View style={styles.contChapters}>
+                  {chapters.map((chapter) => {
+                    let card = (
+                      <View key={chapter.id}>
+                        <Image
+                          source={{ uri: chapter?.pages[0] }}
+                          style={styles.bannerPhotoChapter}
+                        />
+                        <Text style={styles.titleChapter}>{chapter.title}</Text>
+                      </View>
+                    );
+
+                    return card;
+                  })}
+                </View>
               ) : (
-              
                 <Text style={styles.desripcion}>{manga.description}</Text>
               )}
             </View>
@@ -169,7 +166,6 @@ const styles = {
     marginTop: 160,
     width: 250,
     height: 250,
-  
   },
   desripcion: {
     color: "#000000",
@@ -177,7 +173,6 @@ const styles = {
     padding: 15,
     fontSize: 18,
     textAlign: "center",
-   
   },
   titulo: {
     color: "black",

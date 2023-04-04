@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import bottomTabsActions from '../Store/Perfil/action';  
 import detailsActions from "../Store/Details/actions"
-
+import { Alert } from 'react-native';
 const { mangaClicked } = detailsActions
 const { reloadBottomTabs } = bottomTabsActions
 
@@ -58,16 +58,24 @@ export default function LogOut() {
       setTimeout(() => {
         setLoading(false);
       }, 3000);
+      Alert.alert(
+        'Log out successfully, thank you for visiting us!!',
+      
+      );
       navigation.navigate('Home');
       
     } catch (e) {
+      Alert.alert(
+        'Ups !',
+      
+      );
       console.log(e);
     }
   };
 
   return (
-  <TouchableOpacity>
-    <Text  onPress={handleLogOut} style={style.button}> Log Out </Text>
+  <TouchableOpacity  onPress={handleLogOut}   style={style.button}  activeOpacity={0.7}>
+    <Text  style={style.button}> Log Out </Text>
 
     
     </TouchableOpacity>
@@ -79,5 +87,8 @@ const style = StyleSheet.create ({
     backgroundColor: 'green',
     color: 'white',
     textAlign: 'center',
-    fontSize: 25,  }
+    fontSize: 25,  },
+    buttonHover: {
+      backgroundColor: 'darkgrey',
+    },
 })

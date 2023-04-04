@@ -1,13 +1,14 @@
 
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { useDispatch, useSelector } from 'react-redux';
 import bottomTabsActions from '../Store/Perfil/action';  
 const { reloadBottomTabs } = bottomTabsActions
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BienvenidaRegister from './Wellcome';
-import Toast from 'react-native-toast-message';
+
 import axios from 'axios';
 import google from "../../assets/Googlee.png"
 import { Alert } from 'react-native';
@@ -65,7 +66,7 @@ export default function FormLogin() {
     }
   }
   return (
-    
+    <KeyboardAwareScrollView>
     <View style={styles.container}>
       <BienvenidaRegister text="Welcome!"/>
 
@@ -128,6 +129,7 @@ export default function FormLogin() {
         </Text>
       </View>
     </View>
+    </KeyboardAwareScrollView>
   );
 };
 const styles = StyleSheet.create({
@@ -199,13 +201,19 @@ const styles = StyleSheet.create({
   },
 
   button: {
-    backgroundColor: "black",
+    backgroundColor: "green",
     borderRadius: 10,
     height: 60,
     marginBottom: 20,
     width: "90%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  inputTextKeyboard: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
   },
   
   buttonText: {
@@ -251,7 +259,7 @@ const styles = StyleSheet.create({
   },
 
   parrafosFormText:{
-    color: "#FA0003",
+    color: "green",
     fontWeight: 700,
   },
 });

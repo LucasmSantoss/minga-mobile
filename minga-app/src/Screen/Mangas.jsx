@@ -122,17 +122,18 @@ export default function Mangas() {
 
 const styles = {
   loadMoreButton: {
-    color: "white",
+    color: "green",
     fontSize: 15,
     height: 22,
     borderRadius: 15,
     width: 110,
-
+    backgroundColor: 'white',
     textAlign: "center",
   },
   noMoreButton: {
-    color: "white",
+    color: "green",
     fontSize: 15,
+    backgroundColor: 'white',
     height: 22,
     borderRadius: 15,
     width: 200,
@@ -168,6 +169,7 @@ const styles = {
     fontWeight: "bold",
     marginRight: 10,
     color: "#08FC6C",
+    textDecorationLine: "underline",
   },
   searchContainer: {
     flex: 1,
