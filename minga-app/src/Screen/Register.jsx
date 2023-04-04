@@ -2,7 +2,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, ImageBackground } from 'react-native';
 import Wellcome from '../Components/Wellcome';
 import FormRegister from '../Components/FormRegister';
-import bg from '../../assets/fondoregister.jpg';
+import bg from '../../assets/fondoregisterr.jpg';
 
 export default function Register({ handleRender }) {
   return (

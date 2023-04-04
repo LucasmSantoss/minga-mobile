@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Button, TouchableOpacity } from 'react-native';
+import { Button, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { useNavigation } from '@react-navigation/native';
@@ -67,8 +67,17 @@ export default function LogOut() {
 
   return (
   <TouchableOpacity>
-    <Button title="Log Out" onPress={handleLogOut}/>
+    <Text  onPress={handleLogOut} style={style.button}> Log Out </Text>
+
     
     </TouchableOpacity>
   )
 }
+
+const style = StyleSheet.create ({
+  button: {
+    backgroundColor: 'green',
+    color: 'white',
+    textAlign: 'center',
+    fontSize: 25,  }
+})

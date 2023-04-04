@@ -56,21 +56,22 @@ export default function Details({ route }) {
               </TouchableOpacity>
               {showChapters ? (
               
-                <View style={styles.contChapters}>
-                  {chapters.map((chapter) => {
-                    let card = (
-                      <View key={chapter.id}>
-                        <Image
-                          source={{ uri: chapter?.pages[0] }}
-                          style={styles.bannerPhotoChapter}
-                        />
-                        <Text style={styles.titleChapter}>{chapter.title}</Text>
-                      </View>
-                    );
-
-                    return card;
-                  })}
-                </View>
+              <View style={styles.contChapters}>
+              {chapters.map((chapter) => {
+                let card = (
+                  <View key={chapter.id}>
+                    <Image
+                      source={{ uri: chapter?.pages[0] }}
+                      style={styles.bannerPhotoChapter}
+                    />
+                    <Text style={styles.titleChapter}>{chapter.title}</Text>
+                  </View>
+                );
+            
+                return card;
+              })}
+            </View>
+            
               ) : (
               
                 <Text style={styles.desripcion}>{manga.description}</Text>
@@ -135,7 +136,6 @@ const styles = {
   searchContainer: {
     flex: 1,
     height: 60,
-    
     borderRadius: 40,
     flexDirection: "row",
     alignItems: "center",
@@ -156,7 +156,6 @@ const styles = {
     flex: 1,
     padding: 20,
     width: "100%",
-    
     alignItems: "center",
     flexDirection: "column",
     marginTop: 75,
@@ -168,8 +167,8 @@ const styles = {
   },
   bannerPhoto: {
     marginTop: 160,
-    width: 350,
-    height: 350,
+    width: 250,
+    height: 250,
   
   },
   desripcion: {
@@ -178,22 +177,20 @@ const styles = {
     padding: 15,
     fontSize: 18,
     textAlign: "center",
-    textShadowColor: 'rgba(0, 0, 0, 1)',
-    textShadowOffset: {width: 2, height: 2},
-    textShadowRadius: 2,
+   
   },
   titulo: {
     color: "black",
-   
     fontSize: 30,
+    marginTop: 10,
     marginBottom: 10,
     fontWeight: 900,
   },
   show: {
-    color: "green",
+    color: "white",
     textAlign: "center",
     fontSize: 20,
-
+    backgroundColor: "green",
     borderRadius: 100,
     marginBottom: 10,
     fontWeight: 500,

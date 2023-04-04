@@ -7,6 +7,7 @@ import bottomTabsActions from '../Store/Perfil/action';
 const { reloadBottomTabs } = bottomTabsActions
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import BienvenidaRegister from './Wellcome';
+import Toast from 'react-native-toast-message';
 import axios from 'axios';
 import google from "../../assets/Googlee.png"
 import { Alert } from 'react-native';
@@ -56,6 +57,10 @@ export default function FormLogin() {
       );
     } catch (error) {
       console.log(error);
+      Alert.alert(
+        'Wrong Credentials',
+      
+      );
       setLoading(false);
     }
   }
@@ -138,7 +143,8 @@ const styles = StyleSheet.create({
   fieldset: {
     display: "flex",
     alignItems: "flex-start",
-    width: 410,
+    marginTop: 30,
+       width: 410,
     height: 65,
     width: "90%",
     justifyContent: "flex-start",

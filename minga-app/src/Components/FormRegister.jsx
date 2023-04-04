@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     gap: 15,
     marginTop: 30,
     width: "100%",
+   
   },
   fieldset: {
     display: "flex",
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     lineHeight: 15,
     letterSpacing: 1,
     fontWeight: 500,
-    color: "#5F5F5F",
+    color: "white",
   },
   input: {
     width: "90%",

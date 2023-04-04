@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import {
   View,
@@ -25,7 +24,9 @@ export default function Mangas() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`https://minga-host.onrender.com/mangas-form/view?page=${currentPage}`)
+      .get(
+        `https://minga-host.onrender.com/mangas-form/view?page=${currentPage}`
+      )
       .then((response) => {
         if (response.data.mangas.length === 0) {
           setHasMore(false);
@@ -79,7 +80,6 @@ export default function Mangas() {
           </View>
 
           <View style={styles.sectionManga}>
-    
             <View style={styles.searchContainer}>
               <Image source={search} style={styles.searchIcon} />
               <TextInput
@@ -127,7 +127,7 @@ const styles = {
     height: 22,
     borderRadius: 15,
     width: 110,
-    backgroundColor: "",
+
     textAlign: "center",
   },
   noMoreButton: {
@@ -136,7 +136,7 @@ const styles = {
     height: 22,
     borderRadius: 15,
     width: 200,
-    backgroundColor: "",
+
     textAlign: "center",
   },
   containTotal: {
@@ -167,7 +167,7 @@ const styles = {
     fontSize: 44,
     fontWeight: "bold",
     marginRight: 10,
-    color: '#08FC6C' ,
+    color: "#08FC6C",
   },
   searchContainer: {
     flex: 1,

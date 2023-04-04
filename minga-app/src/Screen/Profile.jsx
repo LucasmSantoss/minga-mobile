@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import bg from '../../assets/mangass.png';
+import bg from '../../assets/profilefondo.jpg';
 
 export default function Profile() {
   const [user, setUser] = useState(null);
@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
   userText: {
     fontSize: 16,
     marginBottom: 5,
-    color: '#FFFFFF',
+    color: 'black',
   },
   userPhoto: {
     width: 200,
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     padding: 10,
-    backgroundColor: 'blue',
+    backgroundColor: 'green',
     borderRadius: 5,
   },
   buttonText: {

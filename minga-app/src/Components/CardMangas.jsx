@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 import detailsActions from "../Store/Details/actions"
 
-
 const { mangaClicked } = detailsActions
 
 export default function CardMangas({title, category, photo, _id }) {
@@ -37,7 +36,6 @@ export default function CardMangas({title, category, photo, _id }) {
         </View>
         <Text
           style={styles.read}
-
           onPress={goToDetailsScreen}
         >
           Details
@@ -52,6 +50,8 @@ export default function CardMangas({title, category, photo, _id }) {
     </View>
   );
 }
+
+
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "#F8F8F8",
